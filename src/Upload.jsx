@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Person, getFileUrl } from "blockstack";
 import Navbar from "./Navbar.jsx.js";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import moment from "moment";
 import {
   Sidebar,
@@ -163,12 +163,66 @@ export default class Upload extends Component {
     return (
       <div>
         <Header size="huge" textAlign="center">
-          About SocialVault
+          Upload Your Facebook Data
         </Header>
         <Container textAlign="center" text>
-          We are a decentralized encrypted data storage and browser for social
-          media profiles. Before you #deletefacebook, make sure to save all your
-          memories and data here.
+          <Loader size="huge" active={this.state.isLoading}>
+            Loading Files
+          </Loader>
+          {!this.state.fbDataLoaded && (
+            <div>
+              {" "}
+              <input
+                webkitdirectory=""
+                directory=""
+                mozdirectory=""
+                type="file"
+                multiple
+                id="fbfiles"
+                onClick={e => this.setState({ isLoading: true })}
+                onChange={e => this.handleFileChange(e)}
+                className="inputfile"
+              />
+              <Button size="big" as="label" htmlFor="fbfiles" color="blue">
+                <Icon name="upload" />
+                Select Folder
+              </Button>
+            </div>
+          )}
+
+          <br />
+          {this.state.fbDataLoaded && (
+            <div>
+              <Header size="medium">
+                {this.state.smallFiles.length + this.state.photoFiles.length}{" "}
+                files ready for upload
+              </Header>
+              {this.state.uploadStarted ? (
+                <Progress
+                  active
+                  progress
+                  success={this.state.uploadComplete}
+                  color="teal"
+                  percent={Math.ceil(
+                    (this.state.doneCount /
+                      (this.state.smallFiles.length +
+                        this.state.photoFiles.length)) *
+                      100
+                  )}
+                >
+                  This may take a while...
+                </Progress>
+              ) : (
+                <Button
+                  color="teal"
+                  onClick={() => this.handleFileUpload()}
+                  size="big"
+                >
+                  Upload Your Facebook Data
+                </Button>
+              )}
+            </div>
+          )}
         </Container>
       </div>
     );
