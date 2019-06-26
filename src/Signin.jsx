@@ -258,7 +258,20 @@ export default class Signin extends Component {
             </Grid.Row>
           </Grid>
         </Segment>
+        <Segment style={{ padding: "8em 0em" }} vertical>
+          <Container text>
+            <Header as="h3" style={{ fontSize: "2em" }}>
+              Keep all your posts, photos and more
+            </Header>
+            <p style={{ fontSize: "1.33em" }}>
+              Browse through your old photo albums, groups you've been in, events you've attended, friends posts on your timeline, and more.
+            </p>
+            <Button as="a" size="large" color="black" onClick={handleSignIn}>
+              Sign up
+            </Button>
 
+          </Container>
+        </Segment>
         <Segment style={{ padding: "0em" }} vertical>
           <Grid celled="internally" columns="equal" stackable>
             <Grid.Row textAlign="center">
@@ -283,20 +296,7 @@ export default class Signin extends Component {
           </Grid>
         </Segment>
 
-        <Segment style={{ padding: "8em 0em" }} vertical>
-          <Container text>
-            <Header as="h3" style={{ fontSize: "2em" }}>
-              Keep all your posts, photos and more
-            </Header>
-            <p style={{ fontSize: "1.33em" }}>
-              Browse through your old photo albums, groups you've been in, events you've attended, friends posts on your timeline, and more.
-            </p>
-            <Button as="a" size="large" color="black" onClick={handleSignIn}>
-              Sign up
-            </Button>
-
-          </Container>
-        </Segment>
+      
 
         <Segment inverted vertical style={{ padding: "2em 0em" }}>
           <Container>
@@ -305,7 +305,7 @@ export default class Signin extends Component {
                 <Grid.Column width={7}>
                   <Header inverted as="h4" content="About" />
                   <List link inverted>
-                    <List.Item as="a">About us</List.Item>
+                    <List.Item as="a">About SocialVault</List.Item>
                     <List.Item as="a">Privacy</List.Item>
                     <List.Item as="a">Github</List.Item>
 

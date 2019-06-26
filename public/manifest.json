@@ -1,7 +1,7 @@
 {
-  "name": "Hello, Blockstack",
+  "name": "SocialVault",
   "start_url": "localhost:3000",
-  "description": "A simple demo of Blockstack Auth",
+  "description": "Encrypted, decentralized storage and browser for your Facebook data",
   "icons": [{
     "src": "http://localhost:3000/icon-192x192.png",
     "sizes": "192x192",
