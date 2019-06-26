@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Person, getFileUrl } from "blockstack";
-import Navbar from "./Navbar.jsx.js";
 import { Link, Redirect } from "react-router-dom";
 import moment from "moment";
 import {

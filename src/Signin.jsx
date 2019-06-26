@@ -45,7 +45,7 @@ const HomepageHeading = ({ handleSignIn, mobile }) => (
     />
     <Header
       as="h2"
-      content="Decentralized, encrypted storage for your social media data"
+      content="Decentralized, encrypted storage and browser for your Facebook data"
       inverted
       style={{
         fontSize: mobile ? "1.5em" : "1.7em",
@@ -59,7 +59,7 @@ const HomepageHeading = ({ handleSignIn, mobile }) => (
       color="black"
       size="huge"
     >
-      Get Started
+      Login with Blockstack
       <Icon name="right arrow" />
     </Button>
   </Container>
@@ -230,19 +230,16 @@ export default class Signin extends Component {
             <Grid.Row>
               <Grid.Column width={8}>
                 <Header as="h3" style={{ fontSize: "2em" }}>
-                  We Help Companies and Companions
+                  Before you #deletefacebook, take your data with you
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
-                  We can give your company superpowers to do things that they
-                  never thought possible. Let us delight your customers and
-                  empower your needs... through pure data analytics.
+                  Over the years, you've made many memories on Facbeook. Don't just delete your account, take your data with you and preserve all those memories. 
                 </p>
                 <Header as="h3" style={{ fontSize: "2em" }}>
-                  We Make Bananas That Can Dance
+                  Your data is secure.
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
-                  Yes that's right, you thought it was the stuff of dreams, but
-                  even bananas can be bioengineered.
+                  Your data is decentralized and encrypted using Blockstack's Gaia storage. This means that no one can access your data but you. 
                 </p>
               </Grid.Column>
               <Grid.Column floated="right" width={6}>
@@ -250,13 +247,13 @@ export default class Signin extends Component {
                   bordered
                   rounded
                   size="large"
-                  src="/images/wireframe/white-image.png"
+                  src="https://d41aeffj97otb.cloudfront.net/wp-content/uploads/2018/03/shift8-delete-facebook-1.jpg"
                 />
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
               <Grid.Column textAlign="center">
-                <Button size="huge">Check Them Out</Button>
+                <Button size="huge" color="black" onClick={handleSignIn}>Try it out</Button>
               </Grid.Column>
             </Grid.Row>
           </Grid>
@@ -267,19 +264,19 @@ export default class Signin extends Component {
             <Grid.Row textAlign="center">
               <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
                 <Header as="h3" style={{ fontSize: "2em" }}>
-                  "What a Company"
+                  "Eighty-four percent of users are somewhat or very concerned how their data may be used by Facebook."
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
-                  That is what they all say about us
+                  USA TODAY
                 </p>
               </Grid.Column>
               <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
                 <Header as="h3" style={{ fontSize: "2em" }}>
-                  "I shouldn't have gone with their competitor."
+                  "Just don’t like Facebook. Gives me the willies."
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
-                  <Image avatar src="/images/avatar/large/nan.jpg" />
-                  <b>Nan</b> Chief Fun Officer Acme Toys
+                  <Image avatar src="https://cdn.cnn.com/cnnnext/dam/assets/180907100732-elon-musk-smokes-marijuana-podcast-1-large-169.jpg" />
+                  <b>Elon Musk</b>
                 </p>
               </Grid.Column>
             </Grid.Row>
@@ -289,71 +286,38 @@ export default class Signin extends Component {
         <Segment style={{ padding: "8em 0em" }} vertical>
           <Container text>
             <Header as="h3" style={{ fontSize: "2em" }}>
-              Breaking The Grid, Grabs Your Attention
+              Keep all your posts, photos and more
             </Header>
             <p style={{ fontSize: "1.33em" }}>
-              Instead of focusing on content creation and hard work, we have
-              learned how to master the art of doing nothing by providing
-              massive amounts of whitespace and generic content that can seem
-              massive, monolithic and worth your attention.
+              Browse through your old photo albums, groups you've been in, events you've attended, friends posts on your timeline, and more.
             </p>
-            <Button as="a" size="large">
-              Read More
+            <Button as="a" size="large" color="black" onClick={handleSignIn}>
+              Sign up
             </Button>
 
-            <Divider
-              as="h4"
-              className="header"
-              horizontal
-              style={{ margin: "3em 0em", textTransform: "uppercase" }}
-            >
-              <a href="#">Case Studies</a>
-            </Divider>
-
-            <Header as="h3" style={{ fontSize: "2em" }}>
-              Did We Tell You About Our Bananas?
-            </Header>
-            <p style={{ fontSize: "1.33em" }}>
-              Yes I know you probably disregarded the earlier boasts as
-              non-sequitur filler content, but it's really true. It took years
-              of gene splicing and combinatory DNA research, but our bananas can
-              really dance.
-            </p>
-            <Button as="a" size="large">
-              I'm Still Quite Interested
-            </Button>
           </Container>
         </Segment>
 
-        <Segment inverted vertical style={{ padding: "5em 0em" }}>
+        <Segment inverted vertical style={{ padding: "2em 0em" }}>
           <Container>
             <Grid divided inverted stackable>
               <Grid.Row>
-                <Grid.Column width={3}>
+                <Grid.Column width={7}>
                   <Header inverted as="h4" content="About" />
                   <List link inverted>
-                    <List.Item as="a">Sitemap</List.Item>
-                    <List.Item as="a">Contact Us</List.Item>
-                    <List.Item as="a">Religious Ceremonies</List.Item>
-                    <List.Item as="a">Gazebo Plans</List.Item>
+                    <List.Item as="a">About us</List.Item>
+                    <List.Item as="a">Privacy</List.Item>
+                    <List.Item as="a">Github</List.Item>
+
                   </List>
                 </Grid.Column>
-                <Grid.Column width={3}>
-                  <Header inverted as="h4" content="Services" />
-                  <List link inverted>
-                    <List.Item as="a">Banana Pre-Order</List.Item>
-                    <List.Item as="a">DNA FAQ</List.Item>
-                    <List.Item as="a">How To Access</List.Item>
-                    <List.Item as="a">Favorite X-Men</List.Item>
-                  </List>
-                </Grid.Column>
+          
                 <Grid.Column width={7}>
                   <Header as="h4" inverted>
-                    Footer Header
+                    Team
                   </Header>
                   <p>
-                    {/* Extra space for a call to action inside the footer that
-                    could help re-engage users. */}
+                    Made with &nbsp; <span role="image" aria-label="heart emoji">❤️</span> by <a href="#">@dkb868</a>
                   </p>
                 </Grid.Column>
               </Grid.Row>
