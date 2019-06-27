@@ -28,8 +28,7 @@ export default class SearchHistory extends Component {
       person: {
         name() {
           return "Anonymous";
-        },
-          
+        }
       },
       username: "",
 
@@ -79,8 +78,7 @@ export default class SearchHistory extends Component {
                 <Feed.Event key={search.title + search.timestamp + i}>
                   <Feed.Content>
                     <Feed.Summary>
-                      You searched for{" "}
-                      <Feed.User>{search.data[0].text}</Feed.User>
+                      {search.title}
                       <Feed.Date>
                         {moment(date).format("MMM Do YYYY")}
                       </Feed.Date>

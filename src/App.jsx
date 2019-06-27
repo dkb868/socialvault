@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import AboutYou from "./AboutYou.jsx";
 import Groups from "./Groups.jsx";
 import Photos from "./Photos.jsx";
@@ -20,12 +20,31 @@ import Friends from "./Friends.jsx";
 import Main from "./Main.jsx";
 import Signin from "./Signin.jsx";
 import { UserSession, AppConfig } from "blockstack";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+  Link
+} from "react-router-dom";
 import YourPosts from "./YourPosts.jsx";
-const appConfig = new AppConfig(["store_write", "email"]);
+const appConfig = new AppConfig(["store_write"]);
 const userSession = new UserSession({ appConfig: appConfig });
 
-export default class App extends Component {
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      userSession.isUserSignedIn() === true ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/" />
+      )
+    }
+  />
+);
+
+export default class App extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -57,9 +76,13 @@ export default class App extends Component {
     );
     const DefaultContainer = () => (
       <div>
-        <Navbar handleSignOut={this.handleSignOut} />
+        <Navbar
+          userSession={userSession}
+          handleSignIn={this.handleSignIn}
+          handleSignOut={this.handleSignOut}
+        />
 
-        <Route
+        <PrivateRoute
           exact
           path="/upload"
           component={() => (
@@ -77,7 +100,7 @@ export default class App extends Component {
             <About userSession={userSession} handleSignIn={this.handleSignIn} />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/main"
           component={() => (
@@ -87,7 +110,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/friends"
           component={() => (
@@ -97,7 +120,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/about_you"
           component={() => (
@@ -108,7 +131,7 @@ export default class App extends Component {
           )}
         />
 
-        <Route
+        <PrivateRoute
           exact
           path="/comments"
           component={() => (
@@ -118,7 +141,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/events"
           component={() => (
@@ -128,7 +151,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/following_and_followers"
           component={() => (
@@ -138,7 +161,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/groups"
           component={() => (
@@ -148,7 +171,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/likes_and_reactions"
           component={() => (
@@ -158,7 +181,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/pages"
           component={() => (
@@ -168,7 +191,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/photos_and_videos"
           component={() => (
@@ -178,7 +201,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/posts"
           component={() => (
@@ -188,7 +211,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/posts/notes"
           component={() => (
@@ -198,7 +221,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/posts/your_posts"
           component={() => (
@@ -208,7 +231,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/posts/other_peoples_posts_to_your_timeline"
           component={() => (
@@ -218,7 +241,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/profile_information"
           component={() => (
@@ -229,7 +252,7 @@ export default class App extends Component {
           )}
         />
 
-        <Route
+        <PrivateRoute
           exact
           path="/search_history"
           component={() => (
@@ -239,7 +262,7 @@ export default class App extends Component {
             />
           )}
         />
-        <Route
+        <PrivateRoute
           path="/photos_and_videos/album/:albumId"
           component={props => (
             <PhotoAlbum

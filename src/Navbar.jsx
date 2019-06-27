@@ -24,13 +24,21 @@ export default class Navbar extends Component {
     return (
       <Container>
         <Menu size="huge" secondary>
-          <Menu.Item header>SocialVault</Menu.Item>
+          <Menu.Item header as={Link} to="/">
+            SocialVault
+          </Menu.Item>
           <Menu.Item as={Link} to="/" name="home" />
-          <Menu.Item as={Link} to="/upload" name="upload Facebook Data" />
+          {this.props.userSession.isUserSignedIn() === true && (
+            <Menu.Item as={Link} to="/upload" name="upload Facebook Data" />
+          )}
           <Menu.Item as={Link} to="/about" name="about" />
 
           <Menu.Menu position="right">
-            <Menu.Item name="Logout" onClick={this.props.handleSignOut} />
+            {this.props.userSession.isUserSignedIn() === true ? (
+              <Menu.Item name="Logout" onClick={this.props.handleSignOut} />
+            ) : (
+              <Menu.Item name="Login" onClick={this.props.handleSignIn} />
+            )}
           </Menu.Menu>
         </Menu>
       </Container>
