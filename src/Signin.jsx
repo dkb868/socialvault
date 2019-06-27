@@ -53,12 +53,7 @@ const HomepageHeading = ({ handleSignIn, mobile }) => (
         marginTop: mobile ? "0.5em" : "1.5em"
       }}
     />
-    <Button
-      inverted
-      onClick={handleSignIn.bind(this)}
-      color="black"
-      size="huge"
-    >
+    <Button inverted onClick={handleSignIn.bind(this)} size="huge">
       Login with Blockstack
       <Icon name="right arrow" />
     </Button>
@@ -225,21 +220,33 @@ export default class Signin extends Component {
       <Redirect to="/main" />
     ) : (
       <ResponsiveContainer handleSignIn={handleSignIn}>
-        <Segment style={{ padding: "8em 0em" }} vertical>
+        <Segment style={{ padding: "6em 0em" }} vertical>
           <Grid container stackable verticalAlign="middle">
             <Grid.Row>
               <Grid.Column width={8}>
                 <Header as="h3" style={{ fontSize: "2em" }}>
-                  Before you #deletefacebook, take your data with you
+                  Before you <a>#deletefacebook</a>, take your data with you
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
-                  Over the years, you've made many memories on Facbeook. Don't just delete your account, take your data with you and preserve all those memories. 
+                  Over the years, you've made many memories on Facbeook. Don't
+                  just delete your account, take your data with you and preserve
+                  all those memories.
                 </p>
                 <Header as="h3" style={{ fontSize: "2em" }}>
-                  Your data is secure.
+                  Your data is secure
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
-                  Your data is decentralized and encrypted using Blockstack's Gaia storage. This means that no one can access your data but you. 
+                  Your data is decentralized and encrypted using Blockstack's
+                  Gaia storage. This means that no one can access your data but
+                  you. Read more about Blockstack Gaia storage{" "}
+                  <a
+                    href="https://docs.blockstack.org/storage/overview.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    here
+                  </a>
+                  .{" "}
                 </p>
               </Grid.Column>
               <Grid.Column floated="right" width={6}>
@@ -251,25 +258,29 @@ export default class Signin extends Component {
                 />
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
-              <Grid.Column textAlign="center">
-                <Button size="huge" color="black" onClick={handleSignIn}>Try it out</Button>
-              </Grid.Column>
-            </Grid.Row>
           </Grid>
         </Segment>
-        <Segment style={{ padding: "8em 0em" }} vertical>
+        <Segment style={{ padding: "6em 0em" }} vertical>
           <Container text>
             <Header as="h3" style={{ fontSize: "2em" }}>
               Keep all your posts, photos and more
             </Header>
             <p style={{ fontSize: "1.33em" }}>
-              Browse through your old photo albums, groups you've been in, events you've attended, friends posts on your timeline, and more.
+              Browse through your old photo albums, groups you've been in,
+              events you've attended, friends posts on your timeline, and more.
             </p>
-            <Button as="a" size="large" color="black" onClick={handleSignIn}>
-              Sign up
-            </Button>
+            <Image size="huge" src={require("./main.png")} />
 
+            <Container textAlign="center">
+              <Button
+                style={{ marginTop: "10px" }}
+                size="large"
+                color="black"
+                onClick={handleSignIn}
+              >
+                Sign up
+              </Button>
+            </Container>
           </Container>
         </Segment>
         <Segment style={{ padding: "0em" }} vertical>
@@ -277,26 +288,26 @@ export default class Signin extends Component {
             <Grid.Row textAlign="center">
               <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
                 <Header as="h3" style={{ fontSize: "2em" }}>
-                  "Eighty-four percent of users are somewhat or very concerned how their data may be used by Facebook."
+                  "Eighty-four percent of users are somewhat or very concerned
+                  how their data may be used by Facebook."
                 </Header>
-                <p style={{ fontSize: "1.33em" }}>
-                  USA TODAY
-                </p>
+                <p style={{ fontSize: "1.33em" }}>USA TODAY</p>
               </Grid.Column>
               <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
                 <Header as="h3" style={{ fontSize: "2em" }}>
                   "Just don’t like Facebook. Gives me the willies."
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
-                  <Image avatar src="https://cdn.cnn.com/cnnnext/dam/assets/180907100732-elon-musk-smokes-marijuana-podcast-1-large-169.jpg" />
+                  <Image
+                    avatar
+                    src="https://cdn.cnn.com/cnnnext/dam/assets/180907100732-elon-musk-smokes-marijuana-podcast-1-large-169.jpg"
+                  />
                   <b>Elon Musk</b>
                 </p>
               </Grid.Column>
             </Grid.Row>
           </Grid>
         </Segment>
-
-      
 
         <Segment inverted vertical style={{ padding: "2em 0em" }}>
           <Container>
@@ -305,19 +316,37 @@ export default class Signin extends Component {
                 <Grid.Column width={7}>
                   <Header inverted as="h4" content="About" />
                   <List link inverted>
-                    <List.Item as="a">About SocialVault</List.Item>
-                    <List.Item as="a">Privacy</List.Item>
-                    <List.Item as="a">Github</List.Item>
-
+                    <List.Item as="a" href="/about">
+                      About SocialVault
+                    </List.Item>
+                    <List.Item
+                      as="a"
+                      href="https://github.com/dkb868/socialvault"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Github
+                    </List.Item>
                   </List>
                 </Grid.Column>
-          
+
                 <Grid.Column width={7}>
                   <Header as="h4" inverted>
                     Team
                   </Header>
                   <p>
-                    Made with &nbsp; <span role="image" aria-label="heart emoji">❤️</span> by <a href="#">@dkb868</a>
+                    Made with &nbsp;{" "}
+                    <span role="image" aria-label="heart emoji">
+                      ❤️
+                    </span>{" "}
+                    by{" "}
+                    <a
+                      href="https://twitter.com/dkb868"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      @dkb868
+                    </a>
                   </p>
                 </Grid.Column>
               </Grid.Row>
@@ -328,38 +357,3 @@ export default class Signin extends Component {
     );
   }
 }
-
-/*
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-export default class Signin extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { handleSignIn } = this.props;
-    const isSignedIn = this.props.userSession.isUserSignedIn();
-    return isSignedIn ? (
-      <Redirect to="/main" />
-    ) : (
-      <div className="site-wrapper">
-        <div className="site-wrapper-inner">
-          <div className="panel-landing" id="section-1">
-            <h1 className="landing-heading">Hello, Blockstack!</h1>
-            <p className="lead">
-              <button
-                className="btn btn-primary btn-lg"
-                id="signin-button"
-                onClick={handleSignIn.bind(this)}
-              >
-                Sign In with Blockstack
-              </button>
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-*/

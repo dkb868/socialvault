@@ -22,161 +22,85 @@ import {
   Header
 } from "semantic-ui-react";
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-export default class Upload extends Component {
+export default class About extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      person: {
-        name() {
-          return "Anonymous";
-        },
-          
-      },
-      username: "",
-
-      isLoading: false,
-      pages: [],
-      fbDataLoaded: false,
-      smallFiles: [],
-      photoFiles: [],
-      uploadComplete: false,
-      uploadStarted: false,
-      doneCount: 0
-    };
-  }
-
-  handleFileChange(event) {
-    console.log(event.target.files);
-    let fileCount = event.target.files.length;
-    let currentFileIndex = 0;
-    let smallFiles = [];
-    let photoFiles = [];
-    let progress = (currentFileIndex / fileCount) * 100;
-    for (let file of event.target.files) {
-      let folderName = file.webkitRelativePath.split("/")[1];
-
-      if (folderName === "photos_and_videos") {
-        // currently ignoring videos for file size
-        if (file.webkitRelativePath.split("/")[2] === "videos") continue;
-        photoFiles.push(file);
-      } else if (folderName === "messages") {
-        continue;
-        // currently ignoring messages and stories folders for file size
-      } else if (folderName === "stories") {
-        continue;
-      } else {
-        smallFiles.push(file);
-      }
-    }
-
-    this.setState({
-      smallFiles,
-      isLoading: false,
-      photoFiles,
-      fbDataLoaded: true
-    });
-  }
-
-  async handleFileUpload() {
-    this.setState({ uploadStarted: true });
-    let totalFiles =
-      this.state.smallFiles.length + this.state.photoFiles.length;
-    const { userSession } = this.props;
-    const { smallFiles, photoFiles } = this.state;
-    // process small files first, they are quick to get stored and make the app instantly useful
-    for (let file of smallFiles) {
-      // remove the name of the unique facebook user from the path
-      let fileName = file.webkitRelativePath.substring(
-        file.webkitRelativePath.indexOf("/") + 1
-      );
-      let fr = new FileReader();
-      fr.readAsText(file);
-      fr.onload = () => {
-        console.log(fr.result);
-        userSession
-          .putFile(fileName, fr.result)
-          .then(() => {
-            this.setState(
-              prevState => ({
-                doneCount: prevState.doneCount + 1
-              }),
-              () => {
-                if (this.state.doneCount === totalFiles) {
-                  this.setState({ uploadComplete: true });
-                }
-              }
-            );
-            console.log("File successfully uploaded to Gaia storage", fileName);
-          })
-          .catch(err => console.log(err));
-      };
-    }
-
-    // process images second, this will take a longer time and require throttling so gaia doesn't fail.
-    for (let file of photoFiles) {
-      // hacky way to throttle so Gaia doesn't reject uploads
-      await sleep(500);
-      let fr = new FileReader();
-      if (file.type.toLowerCase() === "application/json") {
-        fr.readAsText(file);
-      } else {
-        fr.readAsDataURL(file);
-      }
-
-      // remove the name of the unique facebook user from the path
-      let fileName = file.webkitRelativePath.substring(
-        file.webkitRelativePath.indexOf("/") + 1
-      );
-
-      fr.onload = () => {
-        userSession
-          .putFile(fileName, fr.result)
-          .then(() => {
-            this.setState(
-              prevState => ({
-                doneCount: prevState.doneCount + 1
-              }),
-              () => {
-                if (this.state.doneCount === totalFiles) {
-                  this.setState({ uploadComplete: true });
-                }
-              }
-            );
-            console.log(
-              "Image successfully uploaded to Gaia storage",
-              fileName
-            );
-          })
-          .catch(err => console.log(err));
-      };
-    }
   }
 
   render() {
- 
     return (
       <div>
         <Header size="huge" textAlign="center">
           About SocialVault
         </Header>
-        <Container textAlign="center" text>
-          We are a decentralized encrypted data storage and browser for social
-          media profiles. Before you #deletefacebook, make sure to save all your
-          memories and data here.
+        <Container text>
+          <Image src={require("./me.jpg")} size="small" circular centered />
+          <Header size="small" textAlign="center">
+            Hi, I'm Dmitri, the maker of SocialVault
+          </Header>
+          <div style={{ fontSize: "1.2em" }}>
+            <p>
+              <strong>SocialVault</strong> is a place to securely store your
+              Facebook data. More and more people are deleting their Facebook
+              profiles everyday, yet we have so much data stored there in the
+              form of posts, images, events we've attended in the past, and
+              groups we've joined.
+            </p>
+            <p>
+              {" "}
+              Before you #deletefacebook, you can now take your data with you to
+              keep all those memories alive. In the future, you may also be able
+              to import your data from SocialVault into newer, more privacy
+              focused social media platforms to make the transition easier.
+            </p>
+            <p>
+              By using{" "}
+              <a
+                href="https://blockstack.org"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Blockstack's
+              </a>{" "}
+              Gaia storage, you can store your data very securely. App
+              developers like me are unable to access your data in any way, and
+              the data is also encrypted. Read more about Gaia storage{" "}
+              <a
+                href="https://docs.blockstack.org/storage/overview.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                here
+              </a>
+              .{" "}
+            </p>
+
+            <p>
+              The code for this project is open source, so you can take a look
+              at it on{" "}
+              <a
+                href="https://github.com/dkb868/socialvault"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Github.
+              </a>
+            </p>
+            <p>
+              If you have any feedback, requests, or questions, feel free to
+              leave a message in the chatbox below, or DM me on Twitter -{" "}
+              <a
+                href="https://twitter.com/dkb868"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                @dkb868
+              </a>
+              .
+            </p>
+          </div>
         </Container>
       </div>
     );
-  }
-
-  componentWillMount() {
-    const { userSession } = this.props;
-    this.setState({
-      person: new Person(userSession.loadUserData().profile),
-      username: userSession.loadUserData().username
-    });
   }
 }
