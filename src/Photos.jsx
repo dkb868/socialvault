@@ -28,8 +28,7 @@ export default class Photos extends Component {
       person: {
         name() {
           return "Anonymous";
-        },
-          
+        }
       },
       username: "",
 
@@ -106,7 +105,7 @@ export default class Photos extends Component {
       if (album !== null) {
         album = JSON.parse(album);
         // apparently there's empty albums, let's skip those
-        if (album.photos.length === 0) continue;
+        if (!album.photos || album.photos.length === 0) continue;
         if (this._isMounted) {
           album.coverImageData = await userSession.getFile(
             album.cover_photo.uri
