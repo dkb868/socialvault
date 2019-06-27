@@ -22,7 +22,7 @@ import Signin from "./Signin.jsx";
 import { UserSession, AppConfig } from "blockstack";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import YourPosts from "./YourPosts.jsx";
-const appConfig = new AppConfig(["store_write", "publish_data"]);
+const appConfig = new AppConfig(["store_write", "email"]);
 const userSession = new UserSession({ appConfig: appConfig });
 
 export default class App extends Component {
