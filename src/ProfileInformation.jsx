@@ -23,8 +23,7 @@ export default class ProfileInformation extends Component {
       person: {
         name() {
           return "Anonymous";
-        },
-          
+        }
       },
       username: "",
 
@@ -79,91 +78,112 @@ export default class ProfileInformation extends Component {
                     profile.registration_timestamp * 1000
                   ).format("MMM Do YYYY")}`}
               </Header>
-              <Header size="small">Emails</Header>
-              <List size="large" bulleted>
-                {profile.emails.emails.map((email, i) => (
-                  <List.Item key={email + i}>{email}</List.Item>
-                ))}
-                {profile.emails.previous_emails.map((email, i) => (
-                  <List.Item key={email + i}>{email}</List.Item>
-                ))}
-                {profile.emails.pending_emails.map((email, i) => (
-                  <List.Item key={email + i}>{email}</List.Item>
-                ))}
-                {profile.emails.ad_account_emails.map((email, i) => (
-                  <List.Item key={email + i}>{email}</List.Item>
-                ))}
-              </List>
-              <Header size="small">{`Birthday - ${profile.birthday.month}/${
-                profile.birthday.day
-              }/${profile.birthday.year}`}</Header>
-              <Header size="small">{`Gender and Pronoun ${
-                profile.gender.gender_option
-              }, ${profile.gender.pronoun}`}</Header>
+              {profile.emails && (
+                <div>
+                  <Header size="small">Emails</Header>
+                  <List size="large" bulleted>
+                    {profile.emails.emails &&
+                      profile.emails.emails.map((email, i) => (
+                        <List.Item key={email + i}>{email}</List.Item>
+                      ))}
+                    {profile.emails.previous_emails &&
+                      profile.emails.previous_emails.map((email, i) => (
+                        <List.Item key={email + i}>{email}</List.Item>
+                      ))}
+                    {profile.emails.pending_emails &&
+                      profile.emails.pending_emails.map((email, i) => (
+                        <List.Item key={email + i}>{email}</List.Item>
+                      ))}
+                    {profile.emails.ad_account_emails &&
+                      profile.emails.ad_account_emails.map((email, i) => (
+                        <List.Item key={email + i}>{email}</List.Item>
+                      ))}
+                  </List>{" "}
+                </div>
+              )}
+              <Header size="small">{`Birthday - ${profile.birthday &&
+                profile.birthday.month}/${profile.birthday &&
+                profile.birthday.day}/${profile.birthday &&
+                profile.birthday.year}`}</Header>
+              <Header size="small">{`Gender and Pronoun ${profile.gender &&
+                profile.gender.gender_option}, ${profile.gender &&
+                profile.gender.pronoun}`}</Header>
               <Header size="small">Previous Names</Header>
               <List size="large" bulleted>
-                {profile.previous_names.map((name, i) => (
-                  <List.Item key={name + i}>{name}</List.Item>
-                ))}
+                {profile.previous_names &&
+                  profile.previous_names.map((name, i) => (
+                    <List.Item key={name + i}>{name}</List.Item>
+                  ))}
               </List>
               <Header size="small">Other Names</Header>
               <List size="large" bulleted>
-                {profile.other_names.map((name, i) => (
-                  <List.Item key={name.name + i}>
-                    {name.name}, {name.type}
-                  </List.Item>
-                ))}
+                {profile.other_names &&
+                  profile.other_names.map((name, i) => (
+                    <List.Item key={name.name + i}>
+                      {name.name}, {name.type}
+                    </List.Item>
+                  ))}
               </List>
               <Header size="small">
-                Current City - {profile.current_city.name}
+                Current City -{" "}
+                {profile.current_city && profile.current_city.name}
               </Header>
-              <Header size="small">Hometown - {profile.hometown.name}</Header>
               <Header size="small">
-                Relationship Status - {profile.relationship.status}
+                Hometown - {profile.hometown && profile.hometown.name}
+              </Header>
+              <Header size="small">
+                Relationship Status -{" "}
+                {profile.relationship && profile.relationship.status}
               </Header>
               <Header size="small">Family Members</Header>
               <List size="large" bulleted>
-                {profile.family_members.map((family, i) => (
-                  <List.Item key={family.name + i}>
-                    {family.name}, {family.relation}
-                  </List.Item>
-                ))}
+                {profile.family_members &&
+                  profile.family_members.map((family, i) => (
+                    <List.Item key={family.name + i}>
+                      {family.name}, {family.relation}
+                    </List.Item>
+                  ))}
               </List>
               <Header size="small">Education History</Header>
               <List size="large" bulleted>
-                {profile.education_experiences.map((edu, i) => (
-                  <List.Item key={edu.name + i}>
-                    {edu.name}, {edu.school_type}
-                  </List.Item>
-                ))}
+                {profile.education_experiences &&
+                  profile.education_experiences.map((edu, i) => (
+                    <List.Item key={edu.name + i}>
+                      {edu.name}, {edu.school_type}
+                    </List.Item>
+                  ))}
               </List>
               <Header size="small">Work History</Header>
               <List size="large" bulleted>
-                {profile.work_experiences.map((work, i) => (
-                  <List.Item key={work.employer + i}>
-                    {work.title}, {work.employer} - {work.location}
-                  </List.Item>
-                ))}
+                {profile.work_experiences &&
+                  profile.work_experiences.map((work, i) => (
+                    <List.Item key={work.employer + i}>
+                      {work.title}, {work.employer} - {work.location}
+                    </List.Item>
+                  ))}
               </List>
               <Header size="small">Languages</Header>
               <List size="large" bulleted>
-                {profile.languages.map((lang, i) => (
-                  <List.Item key={lang + i}>{lang}</List.Item>
-                ))}
+                {profile.languages &&
+                  profile.languages.map((lang, i) => (
+                    <List.Item key={lang + i}>{lang}</List.Item>
+                  ))}
               </List>
               <Header size="small">Interested In</Header>
               <List size="large" bulleted>
-                {profile.interested_in.map((interest, i) => (
-                  <List.Item key={interest + i}>{interest}</List.Item>
-                ))}
+                {profile.interested_in &&
+                  profile.interested_in.map((interest, i) => (
+                    <List.Item key={interest + i}>{interest}</List.Item>
+                  ))}
               </List>
               <Header size="small">Phone Numbers</Header>
               <List size="large" bulleted>
-                {profile.phone_numbers.map((num, i) => (
-                  <List.Item key={num.phone_number + i}>
-                    {num.phone_number}, {num.phone_type}
-                  </List.Item>
-                ))}
+                {profile.phone_numbers &&
+                  profile.phone_numbers.map((num, i) => (
+                    <List.Item key={num.phone_number + i}>
+                      {num.phone_number}, {num.phone_type}
+                    </List.Item>
+                  ))}
               </List>
             </div>
           )}
