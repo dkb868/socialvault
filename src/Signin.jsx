@@ -254,7 +254,7 @@ export default class Signin extends Component {
                   bordered
                   rounded
                   size="large"
-                  src="https://d41aeffj97otb.cloudfront.net/wp-content/uploads/2018/03/shift8-delete-facebook-1.jpg"
+                  src={require("./deletefacebookmine.png")}
                 />
               </Grid.Column>
             </Grid.Row>
@@ -291,18 +291,29 @@ export default class Signin extends Component {
                   "Eighty-four percent of users are somewhat or very concerned
                   how their data may be used by Facebook."
                 </Header>
-                <p style={{ fontSize: "1.33em" }}>USA TODAY</p>
+                <p style={{ fontSize: "1.33em" }}>
+                  {" "}
+                  <a
+                    href="https://www.usatoday.com/story/tech/news/2018/03/28/people-really-deleting-their-facebook-accounts-its-complicated/464109002/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    USA TODAY
+                  </a>
+                </p>
               </Grid.Column>
               <Grid.Column style={{ paddingBottom: "5em", paddingTop: "5em" }}>
                 <Header as="h3" style={{ fontSize: "2em" }}>
                   "Just don’t like Facebook. Gives me the willies."
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
-                  <Image
-                    avatar
-                    src="https://cdn.cnn.com/cnnnext/dam/assets/180907100732-elon-musk-smokes-marijuana-podcast-1-large-169.jpg"
-                  />
-                  <b>Elon Musk</b>
+                  <a
+                    href="https://twitter.com/elonmusk/status/977660603975151616"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Elon Musk
+                  </a>
                 </p>
               </Grid.Column>
             </Grid.Row>
