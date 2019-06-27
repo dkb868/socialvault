@@ -112,7 +112,7 @@ export default class ProfileInformation extends Component {
               <List size="large" bulleted>
                 {profile.previous_names !== undefined &&
                   profile.previous_names.map((name, i) => (
-                    <List.Item key={name + i}>{name}</List.Item>
+                    <List.Item key={name.name + i}>{name.name}</List.Item>
                   ))}
               </List>
               <Header size="small">Other Names</Header>
