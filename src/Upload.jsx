@@ -99,6 +99,10 @@ export default class Upload extends Component {
         userSession
           .putFile(fileName, fr.result)
           .then(() => {
+            console.log("File successfully uploaded to Gaia storage", fileName);
+          })
+          .catch(err => console.log(err))
+          .finally(() => {
             this.setState(
               prevState => ({
                 doneCount: prevState.doneCount + 1
@@ -109,9 +113,7 @@ export default class Upload extends Component {
                 }
               }
             );
-            console.log("File successfully uploaded to Gaia storage", fileName);
-          })
-          .catch(err => console.log(err));
+          });
       };
     }
 
@@ -135,6 +137,13 @@ export default class Upload extends Component {
         userSession
           .putFile(fileName, fr.result)
           .then(() => {
+            console.log(
+              "Image successfully uploaded to Gaia storage",
+              fileName
+            );
+          })
+          .catch(err => console.log(err))
+          .finally(() => {
             this.setState(
               prevState => ({
                 doneCount: prevState.doneCount + 1
@@ -145,12 +154,7 @@ export default class Upload extends Component {
                 }
               }
             );
-            console.log(
-              "Image successfully uploaded to Gaia storage",
-              fileName
-            );
-          })
-          .catch(err => console.log(err));
+          });
       };
     }
   }
