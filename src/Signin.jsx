@@ -256,7 +256,7 @@ export default class Signin extends Component {
                   Before you <a>#deletefacebook</a>, take your data with you
                 </Header>
                 <p style={{ fontSize: "1.33em" }}>
-                  Over the years, you've made many memories on Facbeook. Don't
+                  Over the years, you've made many memories on Facebook. Don't
                   just delete your account, take your data with you and preserve
                   all those memories.
                 </p>
