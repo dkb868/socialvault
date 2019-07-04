@@ -5,6 +5,7 @@ import Photos from "./Photos.jsx";
 import Navbar from "./Navbar.jsx";
 import Upload from "./Upload.jsx";
 import About from "./About.jsx";
+import Privacy from "./Privacy.jsx";
 import Notes from "./Notes.jsx";
 import Posts from "./Posts.jsx";
 import OtherPosts from "./OtherPosts.jsx";
@@ -98,6 +99,16 @@ export default class App extends React.Component {
           path="/about"
           component={() => (
             <About userSession={userSession} handleSignIn={this.handleSignIn} />
+          )}
+        />
+        <Route
+          exact
+          path="/privacy"
+          component={() => (
+            <Privacy
+              userSession={userSession}
+              handleSignIn={this.handleSignIn}
+            />
           )}
         />
         <PrivateRoute

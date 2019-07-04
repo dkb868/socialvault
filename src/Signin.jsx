@@ -370,6 +370,9 @@ export default class Signin extends Component {
                     <List.Item as="a" href="/about">
                       About SocialVault
                     </List.Item>
+                    <List.Item as="a" href="/privacy">
+                      Privacy
+                    </List.Item>
                     <List.Item
                       as="a"
                       href="https://github.com/dkb868/socialvault"
