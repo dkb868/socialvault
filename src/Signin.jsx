@@ -289,7 +289,7 @@ export default class Signin extends Component {
           </Grid>
         </Segment>
         <Segment style={{ padding: "6em 0em" }} vertical>
-          <Container text>
+          <Container>
             <Header as="h3" style={{ fontSize: "2em" }}>
               Keep all your posts, photos and more
             </Header>
@@ -297,8 +297,20 @@ export default class Signin extends Component {
               Browse through your old photo albums, groups you've been in,
               events you've attended, friends posts on your timeline, and more.
             </p>
-            <Image size="huge" src={require("./main.png")} />
+            <Grid stackable>
+              <Grid.Row columns={3}>
+                <Grid.Column>
+                  <Image size="huge" src={require("./main.png")} />
+                </Grid.Column>
+                <Grid.Column>
+                  <Image size="huge" src={require("./album.png")} />
+                </Grid.Column>
 
+                <Grid.Column>
+                  <Image size="huge" src={require("./yourposts.png")} />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
             <Container textAlign="center">
               <Button
                 style={{ marginTop: "10px" }}
