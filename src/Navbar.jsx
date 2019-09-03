@@ -42,7 +42,6 @@ export default class Navbar extends Component {
           {this.props.userSession.isUserSignedIn() === true && (
             <Menu.Item as={Link} to="/upload" name="upload Facebook Data" />
           )}
-          <Menu.Item as={Link} to="/about" name="about" />
 
           <Menu.Menu position="right">
             {this.props.userSession.isUserSignedIn() === true ? (

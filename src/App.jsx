@@ -96,13 +96,6 @@ export default class App extends React.Component {
 
         <Route
           exact
-          path="/about"
-          component={() => (
-            <About userSession={userSession} handleSignIn={this.handleSignIn} />
-          )}
-        />
-        <Route
-          exact
           path="/privacy"
           component={() => (
             <Privacy

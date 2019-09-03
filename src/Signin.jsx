@@ -367,9 +367,6 @@ export default class Signin extends Component {
                 <Grid.Column width={7}>
                   <Header inverted as="h4" content="About" />
                   <List link inverted>
-                    <List.Item as="a" href="/about">
-                      About SocialVault
-                    </List.Item>
                     <List.Item as="a" href="/privacy">
                       Privacy
                     </List.Item>
