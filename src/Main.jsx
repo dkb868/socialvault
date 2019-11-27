@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Navbar from "./Navbar.jsx";
-import { getCategories } from  "./utils";
+import { getCategories } from "./utils";
 import { Person, getFileUrl } from "blockstack";
 import {
   Sidebar,
@@ -76,15 +76,34 @@ export default class Main extends Component {
   async fetchData() {
     const { userSession } = this.props;
     this.setState({ isLoading: true });
+    let uploadCheck = await userSession.getFile("uploadcheck.json");
     let profile = await userSession.getFile(
       "profile_information/profile_information.json"
     );
 
-    if (profile !== null) {
-      this.setState({ userUploadedData: true });
+    if (uploadCheck === null) {
+      uploadCheck = { uploaded: false };
+      await userSession.putFile(
+        "uploadcheck.json",
+        JSON.stringify(uploadCheck)
+      );
+      this.setState({
+        userUploadedData: false
+      });
     } else {
-      this.setState({ userUploadedData: false });
+      let check = JSON.parse(uploadCheck);
+      if (check.uploaded) {
+        this.setState({ userUploadedData: true });
+      } else {
+        this.setState({ userUploadedData: false });
+      }
     }
+
+    // if (profile !== null) {
+    //   this.setState({ userUploadedData: true });
+    // } else {
+    //   this.setState({ userUploadedData: false });
+    // }
 
     this.setState({
       isLoading: false

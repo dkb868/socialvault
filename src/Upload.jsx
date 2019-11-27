@@ -107,8 +107,13 @@ export default class Upload extends Component {
               prevState => ({
                 doneCount: prevState.doneCount + 1
               }),
-              () => {
+              async () => {
                 if (this.state.doneCount === totalFiles) {
+                  let uploadCheck = { uploaded: true };
+                  await userSession.putFile(
+                    "uploadcheck.json",
+                    JSON.stringify(uploadCheck)
+                  );
                   this.setState({ uploadComplete: true });
                 }
               }
@@ -297,8 +302,10 @@ export default class Upload extends Component {
     );
   }
 
-  componentWillMount() {
+  async componentWillMount() {
     const { userSession } = this.props;
+    let uploadCheck = await userSession.getFile("uploadcheck.json");
+
     this.setState({
       person: new Person(userSession.loadUserData().profile),
       username: userSession.loadUserData().username

@@ -27,17 +27,7 @@ export default class Navbar extends Component {
           <Menu.Item header as={Link} to="/">
             SocialVault
           </Menu.Item>
-          <Menu.Item
-            as={"a"}
-            href="https://www.producthunt.com/posts/socialvault?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-socialvault"
-            target="_blank"
-          >
-            <Image
-              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=160211&theme=light"
-              style={{ width: "250px", height: "54px" }}
-              alt="SocialVault - Decentralized and encrypted storage for your Facebook data | Product Hunt Embed"
-            />
-          </Menu.Item>
+
           <Menu.Item as={Link} to="/" name="home" />
           {this.props.userSession.isUserSignedIn() === true && (
             <Menu.Item as={Link} to="/upload" name="upload Facebook Data" />
