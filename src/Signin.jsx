@@ -100,20 +100,6 @@ class DesktopContainer extends Component {
                 </Menu.Item>
 
                 <Menu.Item position="right">
-                  <a
-                    href="https://www.producthunt.com/posts/socialvault?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-socialvault"
-                    target="_blank"
-                  >
-                    <Image
-                      src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=160211&theme=dark"
-                      style={{
-                        width: "250px",
-                        height: "54px",
-                        marginRight: "20px"
-                      }}
-                      alt="SocialVault - Decentralized and encrypted storage for your Facebook data | Product Hunt Embed"
-                    />
-                  </a>
                   <Button inverted={!fixed} onClick={handleSignIn.bind(this)}>
                     Log in
                   </Button>
