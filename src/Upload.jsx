@@ -19,11 +19,11 @@ import {
   Card,
   Input,
   Feed,
-  Header
+  Header,
 } from "semantic-ui-react";
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 export default class Upload extends Component {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class Upload extends Component {
       person: {
         name() {
           return "Anonymous";
-        }
+        },
       },
       username: "",
 
@@ -42,18 +42,20 @@ export default class Upload extends Component {
       fbDataLoaded: false,
       smallFiles: [],
       photoFiles: [],
+      messageFiles: [],
       uploadComplete: false,
       uploadStarted: false,
-      doneCount: 0
+      doneCount: 0,
     };
   }
 
   handleFileChange(event) {
-    console.log(event.target.files);
+    // console.log(event.target.files);
     let fileCount = event.target.files.length;
     let currentFileIndex = 0;
     let smallFiles = [];
     let photoFiles = [];
+    let messageFiles = [];
     let progress = (currentFileIndex / fileCount) * 100;
     for (let file of event.target.files) {
       let folderName = file.webkitRelativePath.split("/")[1];
@@ -63,7 +65,11 @@ export default class Upload extends Component {
         if (file.webkitRelativePath.split("/")[2] === "videos") continue;
         photoFiles.push(file);
       } else if (folderName === "messages") {
-        continue;
+        if (file.type.toLowerCase() === "application/json") {
+          messageFiles.push(file);
+        } else {
+          continue;
+        }
         // currently ignoring messages and stories folders for file size
       } else if (folderName === "stories") {
         continue;
@@ -71,21 +77,24 @@ export default class Upload extends Component {
         smallFiles.push(file);
       }
     }
-
+    console.log("PF", photoFiles);
+    console.log("MF", messageFiles);
+    console.log("SF", smallFiles);
     this.setState({
       smallFiles,
       isLoading: false,
       photoFiles,
-      fbDataLoaded: true
+      messageFiles,
+      fbDataLoaded: true,
     });
   }
 
   async handleFileUpload() {
     this.setState({ uploadStarted: true });
-    let totalFiles =
-      this.state.smallFiles.length + this.state.photoFiles.length;
     const { userSession } = this.props;
-    const { smallFiles, photoFiles } = this.state;
+    const { smallFiles, photoFiles, messageFiles } = this.state;
+    const totalFiles =
+      smallFiles.length + photoFiles.length + messageFiles.length;
     // process small files first, they are quick to get stored and make the app instantly useful
     for (let file of smallFiles) {
       // remove the name of the unique facebook user from the path
@@ -95,17 +104,17 @@ export default class Upload extends Component {
       let fr = new FileReader();
       fr.readAsText(file);
       fr.onload = () => {
-        console.log(fr.result);
+        // console.log(fr.result);
         userSession
           .putFile(fileName, fr.result)
           .then(() => {
-            console.log("File successfully uploaded to Gaia storage", fileName);
+            console.log("Small file uploaded: ", fileName);
           })
-          .catch(err => console.log(err))
+          .catch((err) => console.log(err))
           .finally(() => {
             this.setState(
-              prevState => ({
-                doneCount: prevState.doneCount + 1
+              (prevState) => ({
+                doneCount: prevState.doneCount + 1,
               }),
               async () => {
                 if (this.state.doneCount === totalFiles) {
@@ -142,16 +151,44 @@ export default class Upload extends Component {
         userSession
           .putFile(fileName, fr.result)
           .then(() => {
-            console.log(
-              "Image successfully uploaded to Gaia storage",
-              fileName
-            );
+            console.log("Image uploaded: ", fileName);
           })
-          .catch(err => console.log(err))
+          .catch((err) => console.log(err))
           .finally(() => {
             this.setState(
-              prevState => ({
-                doneCount: prevState.doneCount + 1
+              (prevState) => ({
+                doneCount: prevState.doneCount + 1,
+              }),
+              () => {
+                if (this.state.doneCount === totalFiles) {
+                  this.setState({ uploadComplete: true });
+                }
+              }
+            );
+          });
+      };
+    }
+
+    // MESSAGES
+    for (let i = 0; i < messageFiles.length; i++) {
+      const file = messageFiles[i];
+      // hacky way to throttle so Gaia doesn't reject uploads
+      await sleep(500);
+      let fr = new FileReader();
+      fr.readAsText(file);
+
+      let fileName = `messages/inbox/${i}.json`;
+      fr.onload = () => {
+        userSession
+          .putFile(fileName, fr.result)
+          .then(() => {
+            console.log("Message uploaded: ", fileName);
+          })
+          .catch((err) => console.log(err))
+          .finally(() => {
+            this.setState(
+              (prevState) => ({
+                doneCount: prevState.doneCount + 1,
               }),
               () => {
                 if (this.state.doneCount === totalFiles) {
@@ -165,6 +202,11 @@ export default class Upload extends Component {
   }
 
   render() {
+    const totalFiles =
+      this.state.smallFiles.length +
+      this.state.photoFiles.length +
+      this.state.messageFiles.length;
+
     if (this.state.uploadComplete) {
       return <Redirect to="/main" />;
     }
@@ -228,10 +270,10 @@ export default class Upload extends Component {
           <br />
           <p>
             <strong>
-              IMPORTANT: We currently do not store messages, videos and stories
-              due to the large file sizes. However, support for this will be
-              added later. So please don't delete your local copy of these
-              folders, because there will be no backup.
+              IMPORTANT: We currently do not store message media, videos and
+              stories due to the large file sizes. However, support for this
+              will be added later. So please don't delete your local copy of
+              these folders, because there will be no backup.
             </strong>
           </p>
           <Container
@@ -252,8 +294,8 @@ export default class Upload extends Component {
                   type="file"
                   multiple
                   id="fbfiles"
-                  onClick={e => this.setState({ isLoading: true })}
-                  onChange={e => this.handleFileChange(e)}
+                  onClick={(e) => this.setState({ isLoading: true })}
+                  onChange={(e) => this.handleFileChange(e)}
                   className="inputfile"
                 />
                 <Button size="big" as="label" htmlFor="fbfiles" color="blue">
@@ -267,8 +309,7 @@ export default class Upload extends Component {
             {this.state.fbDataLoaded && (
               <div>
                 <Header size="medium">
-                  {this.state.smallFiles.length + this.state.photoFiles.length}{" "}
-                  files ready for upload
+                  {totalFiles} files ready for upload
                 </Header>
                 {this.state.uploadStarted ? (
                   <Progress
@@ -277,10 +318,7 @@ export default class Upload extends Component {
                     success={this.state.uploadComplete}
                     color="teal"
                     percent={Math.ceil(
-                      (this.state.doneCount /
-                        (this.state.smallFiles.length +
-                          this.state.photoFiles.length)) *
-                        100
+                      (this.state.doneCount / totalFiles) * 100
                     )}
                   >
                     This may take a while...
@@ -308,7 +346,7 @@ export default class Upload extends Component {
 
     this.setState({
       person: new Person(userSession.loadUserData().profile),
-      username: userSession.loadUserData().username
+      username: userSession.loadUserData().username,
     });
   }
 }
