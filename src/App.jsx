@@ -20,13 +20,14 @@ import Events from "./Events.jsx";
 import Friends from "./Friends.jsx";
 import Main from "./Main.jsx";
 import Signin from "./Signin.jsx";
+import Messages from "./Messages.jsx";
 import { UserSession, AppConfig } from "blockstack";
 import {
   BrowserRouter as Router,
   Redirect,
   Route,
   Switch,
-  Link
+  Link,
 } from "react-router-dom";
 import YourPosts from "./YourPosts.jsx";
 const appConfig = new AppConfig(["store_write"]);
@@ -35,7 +36,7 @@ const userSession = new UserSession({ appConfig: appConfig });
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       userSession.isUserSignedIn() === true ? (
         <Component {...props} />
       ) : (
@@ -268,9 +269,19 @@ export default class App extends React.Component {
         />
         <PrivateRoute
           path="/photos_and_videos/album/:albumId"
-          component={props => (
+          component={(props) => (
             <PhotoAlbum
               {...props}
+              userSession={userSession}
+              handleSignOut={this.handleSignOut}
+            />
+          )}
+        />
+        <PrivateRoute
+          exact
+          path="/messages"
+          component={() => (
+            <Messages
               userSession={userSession}
               handleSignOut={this.handleSignOut}
             />
@@ -291,7 +302,7 @@ export default class App extends React.Component {
 
   componentWillMount() {
     if (userSession.isSignInPending()) {
-      userSession.handlePendingSignIn().then(userData => {
+      userSession.handlePendingSignIn().then((userData) => {
         window.location = window.location.origin;
       });
     }
